@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 const ListProduct = () => {
   const navigate = useNavigate()
 
@@ -17,20 +18,25 @@ const ListProduct = () => {
   }, []);
 
   return (
-    <div>
-      {products.map((item, index) => (
-        <div key={index}>
-          <h3>{item.title}</h3>
-          <h5>{item.category}</h5>
-          <div>{item.price}</div>
-          <div>
-            <img src={item.image} style={{ width: 100 }} />
+    <>
+      <div className="flex flex-wrap justify-center gap-4 my-4">
+        {products.map((item, index) => (
+          <div
+            key={index}
+            onClick={() => navigate('/products/' + item.id)}
+            className="bg-white shadow-lg rounded-xl p-4 w-60 hover:shadow-xl transition-transform transform hover:scale-105 cursor-pointer"
+          >
+            <img
+              src={item.image}
+              className="w-full h-70 object-contain rounded-lg"
+            />
+            <h3 className="text-lg font-semibold mt-3">{item.title}</h3>
+            <div className="text-xl font-bold text-green-600 mt-2">${item.price}</div>
           </div>
-          <button onClick={() => navigate('/products/' + item.id)}>Lihat Detail</button>
-          <br /><br />
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
+
   )
 }
 
